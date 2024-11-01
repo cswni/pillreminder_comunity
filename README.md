@@ -22,3 +22,4 @@ Lista de tareas para el proyecto
 ### Done ✓
 
 - [x] Creado primer proyecto  
+- [x] Añadida página de perfil con nuevas opciones  
