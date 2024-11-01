@@ -10,6 +10,7 @@
         "joaopaulolndev/filament-edit-profile": "^1.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "marcogermani87/filament-cookie-consent": "^1.0",
         "saade/filament-fullcalendar": "^3.0"
     },
     "require-dev": {

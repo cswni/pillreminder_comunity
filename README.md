@@ -3,6 +3,7 @@
 Lista de tareas para el proyecto
 ### Todo
 
+- [ ] Logo Pill Reminder  
 - [ ] Filament Resource Treatments  
 - [ ] Filament Resource Events
 - [ ] Multitenancy
@@ -23,3 +24,4 @@ Lista de tareas para el proyecto
 
 - [x] Creado primer proyecto  
 - [x] Añadida página de perfil con nuevas opciones  
+- [x] Cookie Consent  
