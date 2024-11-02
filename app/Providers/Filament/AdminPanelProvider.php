@@ -34,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile()
+            ->passwordReset()
             ->brandLogo(fn () => view('filament.admin.logo'))
             ->darkModeBrandLogo(fn () => view('filament.admin.logo-dark'))
             ->registration()
@@ -97,6 +98,14 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsible(false)
                     ->label('Administration'),
 
+            ])
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ]);
     }
 }
