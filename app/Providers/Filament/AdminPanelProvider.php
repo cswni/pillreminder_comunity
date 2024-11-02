@@ -106,6 +106,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Indigo,
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
-            ]);
+            ])
+            ->font('Ubuntu');
     }
 }
