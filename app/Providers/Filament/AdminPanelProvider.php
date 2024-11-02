@@ -22,6 +22,7 @@ use Joaopaulolndev\FilamentEditProfile\FilamentEditProfilePlugin;
 use Joaopaulolndev\FilamentEditProfile\Pages\EditProfilePage;
 use MarcoGermani87\FilamentCookieConsent\FilamentCookieConsent;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
+use Filament\Navigation\NavigationGroup;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -87,6 +88,15 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->collapsible(false)
+                    ->label('My Treatments'),
+                NavigationGroup::make()
+                    ->collapsible(false)
+                    ->label('Administration'),
+
             ]);
     }
 }
