@@ -37,10 +37,8 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->brandLogo(fn () => view('filament.admin.logo'))
             ->darkModeBrandLogo(fn () => view('filament.admin.logo-dark'))
+            ->favicon(asset('images/logo/logo.svg'))
             ->registration()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
             ->plugins([
                 FilamentFullCalendarPlugin::make()
                 ->timezone('Europe/Madrid')
