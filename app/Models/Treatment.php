@@ -7,6 +7,7 @@ use App\Enums\TreatmentLocation;
 use App\Enums\TreatmentVialType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Treatment extends Model
@@ -43,13 +44,13 @@ class Treatment extends Model
         ];
     }
     /**
-     * Get the Event that the Treatment belongs to.
+     * Get the Events that the Treatment has many.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function event(): BelongsTo
+    public function events(): HasMany
     {
-        return $this->belongsTo(Event::class);
+        return $this->hasMany(Event::class);
     }
     /**
      * Get the Medicine that the Treatment belongs to.
