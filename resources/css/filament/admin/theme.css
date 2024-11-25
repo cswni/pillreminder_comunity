@@ -1,0 +1,104 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+.fi-sidebar-header {
+    @apply !z-50;
+}
+
+.fi-sidebar {
+    @apply !shadow-2xl;
+}
+
+.fi-sidebar-nav ul {
+    @apply !gap-y-2;
+}
+
+.fi-sidebar-header {
+    @apply !px-2 py-4 justify-center;
+    @apply !bg-gradient-to-tr from-primary-50/50 via-secondary-50 to-secondary-50;
+    @apply dark:from-secondary-900/50 dark:via-gray-900 dark:to-gray-900;
+}
+
+.fi-sidebar-group {
+    @apply !bg-gradient-to-b from-primary-50/25 via-secondary-100/50 to-secondary-50/50;
+    @apply dark:!from-slate-800 dark:!via-slate-900 dark:!to-slate-950;
+    @apply dark:border-gray-700/25 rounded-3xl rounded-tl-none;
+    @apply border border-secondary-500/25 my-2 p-2;
+    @apply shadow dark:!shadow-sm dark:!shadow-gray-600;
+}
+.fi-page-sub-navigation-sidebar .fi-sidebar-group {
+    @apply !bg-gradient-to-b from-primary-100/25 via-gray-100/25 to-white;
+    @apply dark:!from-primary-600 dark:!via-gray-800 dark:!to-gray-800;
+    @apply dark:border-gray-700/25 !shadow rounded-3xl rounded-tl-none;
+    @apply border border-secondary-500/25 my-2 p-2;
+}
+
+.fi-sidebar-item-active a, .fi-sidebar-item-active a .fi-sidebar-item-label {
+    @apply !bg-gray-50/0 !font-semibold !text-base;
+}
+
+.fi-sidebar-group-label a[href*="example"] {
+    background-color: silver;
+}
+
+.fi-sidebar-group > div > span {
+    @apply text-secondary-800/90;
+}
+
+.fi-sidebar-nav, .fi-sidebar-open{
+    @apply !bg-gray-50 dark:!bg-gray-900;
+}
+
+.fi-sidebar-nav{
+    scrollbar-gutter: unset !important;
+}
+
+.fi-topbar {
+    @apply !shadow-lg;
+}
+
+.fi-section, .fi-fo-tabs, .fi-fo-repeater-item, .fi-ta-ctn {
+    @apply !rounded-3xl !rounded-tl-none !shadow;
+    @apply !ring-secondary-500/25;
+}
+
+.fi-section {
+    @apply !shadow-md;
+    @apply dark:!from-primary-900/80 dark:!via-gray-900 dark:!to-gray-900;
+}
+
+.fi-simple-main {
+    @apply !shadow-2xl !bg-opacity-10 dark:!bg-opacity-40 rounded-2xl;
+    @apply !bg-gradient-to-tr from-primary-50/10 via-secondary-50/50 to-secondary-50/10;
+    @apply dark:from-primary-100/10 dark:via-secondary-100/30 dark:to-secondary-100/10;
+}
+
+.fi-dropdown-trigger button:hover{
+    @apply !bg-white/0;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track:horizontal {
+    @apply bg-primary-200;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:horizontal {
+    @apply bg-primary-400;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover:horizontal {
+    @apply bg-primary-700;
+}

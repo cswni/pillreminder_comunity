@@ -107,6 +107,8 @@ class AdminPanelProvider extends PanelProvider
                 'warning' => Color::Orange,
             ])
             ->font('Ubuntu')
-            ->defaultThemeMode(ThemeMode::Dark);
+            ->defaultThemeMode(ThemeMode::Dark)
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ;
     }
 }
