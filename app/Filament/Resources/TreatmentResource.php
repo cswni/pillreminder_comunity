@@ -2,16 +2,24 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\TreatmentFirstRoute;
+use App\Enums\TreatmentFrequency;
+use App\Enums\TreatmentLocation;
+use App\Enums\TreatmentVialType;
 use App\Filament\Resources\TreatmentResource\Pages;
 use App\Filament\Resources\TreatmentResource\RelationManagers;
 use App\Models\Treatment;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Wizard;
+use Illuminate\Support\Facades\Auth;
 
 class TreatmentResource extends Resource
 {
@@ -26,36 +34,69 @@ class TreatmentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('medicine_id')
-                    ->relationship('medicine', 'name')
-                    ->required(),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('dosage')
-                    ->required(),
-                Forms\Components\TextInput::make('frequency')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\DateTimePicker::make('start_date')
-                    ->required(),
-                Forms\Components\DateTimePicker::make('end_date')
-                    ->required(),
-                Forms\Components\TextInput::make('vial_type')
-                    ->required(),
-                Forms\Components\TextInput::make('custom_vial_type'),
-                Forms\Components\TextInput::make('location')
-                    ->required(),
-                Forms\Components\TextInput::make('custom_location'),
-                Forms\Components\Toggle::make('alternate_route')
-                    ->required(),
-                Forms\Components\TextInput::make('first_route'),
-                Forms\Components\Toggle::make('notify_feedback')
-                    ->required(),
-                Forms\Components\Toggle::make('notify_pain')
-                    ->required(),
-                Forms\Components\Toggle::make('is_active')
-                    ->required(),
+                Wizard::make([
+                    Wizard\Step::make('General Information')
+                        ->schema([
+                            Forms\Components\Select::make('user_id')
+                                ->relationship('user', 'name')
+                                ->default(Auth::user()->id)
+                                ->required(),
+                            Forms\Components\Select::make('medicine_id')
+                                ->relationship('medicine', 'name')
+                                ->required(),
+                            Forms\Components\TextInput::make('dosage')
+                                ->required(),
+                        ]),
+                    Wizard\Step::make('Schedule')
+                        ->schema([
+                            Forms\Components\DateTimePicker::make('start_date')
+                                ->required(),
+                            Forms\Components\DateTimePicker::make('end_date')
+                                ->required(),
+                            Forms\Components\TextInput::make('frequency')
+                                ->datalist(TreatmentFrequency::all())
+                                ->required()
+                                ->numeric()
+                                ->maxValue(TreatmentFrequency::maxHours())
+                                ->minValue(TreatmentFrequency::minHours())
+                                ->helperText(TreatmentFrequency::helperText())
+                        ]),
+                    Wizard\Step::make('Vial Information')
+                        ->schema([
+                            Forms\Components\Select::make('vial_type')
+                                ->options(TreatmentVialType::class)
+                                ->live()
+                                ->afterStateUpdated(fn(Set $set, $state) => $state !== TreatmentVialType::Injection->value && $set('location', ''))
+                                ->required(),
+                            Forms\Components\TextInput::make('custom_vial_type')
+                                ->visible(fn(Get $get): bool => $get('vial_type') === TreatmentVialType::Other->value),
+                            Forms\Components\Select::make('location')
+                                ->visible(fn(Get $get): bool => $get('vial_type') === TreatmentVialType::Injection->value)
+                                ->options(TreatmentLocation::class)
+                                ->live()
+                                ->required(),
+                            Forms\Components\Select::make('first_route')
+                                ->options(TreatmentFirstRoute::class)
+                                ->required(fn(Get $get): bool => $get('location') === TreatmentLocation::Arms->value || $get('location') === TreatmentLocation::Legs->value)
+                                ->visible(fn(Get $get): bool => $get('location') === TreatmentLocation::Arms->value || $get('location') === TreatmentLocation::Legs->value),
+                            Forms\Components\TextInput::make('custom_location')
+                                ->live()
+                                ->visible(fn(Get $get): bool => $get('location') === TreatmentLocation::Other->value),
+                        ]),
+                    Wizard\Step::make('Additional Information')
+                        ->schema([
+                            Forms\Components\Toggle::make('alternate_route')
+                                ->required(),
+                            Forms\Components\Toggle::make('notify_feedback')
+                                ->required(),
+                            Forms\Components\Toggle::make('notify_pain')
+                                ->required(),
+                            Forms\Components\Toggle::make('is_active')
+                            ->default(true)
+                                ->required(),
+                        ]),
+                ])->skippable()
+                    ->columnSpanFull()
             ]);
     }
 

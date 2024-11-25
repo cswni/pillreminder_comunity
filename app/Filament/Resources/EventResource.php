@@ -26,9 +26,6 @@ class EventResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('medicine_id')
-                    ->relationship('medicine', 'name')
-                    ->required(),
                 Forms\Components\Select::make('treatment_id')
                     ->relationship('treatment', 'id')
                     ->required(),

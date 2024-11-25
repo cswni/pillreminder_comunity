@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->registration()
             ->plugins([
                 FilamentFullCalendarPlugin::make()
-                ->timezone('Europe/Madrid')
+                // ->timezone('Europe/Madrid')
                 ->locale('es'),
                 FilamentEditProfilePlugin::make()
                 ->shouldRegisterNavigation(false)
